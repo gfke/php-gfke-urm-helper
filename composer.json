@@ -1,0 +1,31 @@
+{
+  "name": "gfke/urm-helper",
+  "version": "0.0.0",
+  "description": "utility to work with gfke urm.",
+  "keywords": ["gfke", "urm"],
+  "homepage": "https://github.com/gfke/php-gfke-urm-helper",
+  "license": "MIT",
+  "require": {
+    "guzzlehttp/guzzle": "^6.2",
+    "php": ">=5.6",
+    "wisembly/elephant.io": "~3.0",
+    "react/promise": "^2.5",
+    "guzzlehttp/promises": "^1.3"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^5.1",
+    "satooshi/php-coveralls": "^1.0"
+  },
+  "config": {
+    "process-timeout": 600,
+    "preferred-install": "dist",
+    "github-protocols": [
+      "https"
+    ]
+  },
+  "autoload": {
+    "psr-4": {
+      "": "src/"
+    }
+  }
+}
