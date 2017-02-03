@@ -1,6 +1,6 @@
 {
   "name": "gfke/urm-helper",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "utility to work with gfke urm.",
   "keywords": ["gfke", "urm"],
   "homepage": "https://github.com/gfke/php-gfke-urm-helper",

@@ -28,6 +28,12 @@ class URMSocket
     $this->client->initialize();
   }
 
+  private function parseRead($read)
+  {
+    $read = substr($read, 2);
+    return json_decode($read);
+  }
+
   public function disconnect()
   {
     $this->client->close();
@@ -42,28 +48,25 @@ class URMSocket
       $this->connect();
     }
 
-    $client = $this->client;
-    $promise = new Promise(function () use (&$promise, $client) {
-      $r = null;
-      $waiting = true;
-      while ($waiting) {
-        $r = $client->read();
+    $that = $this;
+    $promise = new Promise(function () use (&$promise, $that) {
+      while (true) {
+        $r = $that->client->read();
         if (!empty($r)) {
-          $waiting = false;
+          $r = $that->parseRead($r);
+          break;
         }
       }
-      $promise->resolve($r);
+
+      $promise->resolve([
+        'event' => $r[0],
+        'data' => $r[1]
+      ]);
     });
 
     $this->client->emit($emitEvent, $data);
 
     // Calling wait will return the value of the promise.
-    $res = $promise->wait();
-    $res = substr($res, 2);
-    $res = json_decode($res);
-    return [
-      'event' => $res[0],
-      'data' => $res[1]
-    ];
+    return $promise->wait();
   }
 }
